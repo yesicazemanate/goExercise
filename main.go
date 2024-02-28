@@ -42,8 +42,15 @@ func getFruta(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, mango)
 }
 
+func getAll(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, mangos)
+}
+
+
 func main() {
 	router := gin.Default()
 	router.GET("/frutamango/:id", getFruta)
-	router.Run("localhost:5000")
+	
+	router.GET("/frutamango", getAll)
+	router.Run("localhost:4000")
 }
