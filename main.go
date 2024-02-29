@@ -144,46 +144,44 @@ func getSerpienteByID(s *gin.Context) {
 	}
 }
 
+var leones = []Leon{
+	{ID: 1, Nombre: "Leon verde", Description: "es muy grande"},
+	{ID: 2, Nombre: "Leon rojo", Description: "es muy grande"},
+	{ID: 3, Nombre: "Leon negro", Description: "es muy grande"},
+	{ID: 4, Nombre: "Leon gris", Description: "es muy grande"},
 
-var frutass = []Server{
-	{ID: 1, Nombre: "Manzana", Description: "fruta que se da en climas frios"},
-	{ID: 2, Nombre: "Uva", Description: "fruta dulce"},
-	{ID: 3, Nombre: "Banano", Description: "fruta con mucha proteina"},
-	{ID: 4, Nombre: "Mango", Description: "fruta tropical"},
 }
 
-//Brayn Delgado//
- type Server struct {
-	ID          int    `json:"id"`
-	Nombre      string `json:"nombre"`
-	Description string `json:"description"`
-	// Otros campos que puedas necesitar
-}
-type Motos struct {
-	ID          int    `json:"id"`
-	Nombre      string `json:"nombre"`
-	Description string `json:"description"`
+func getleon(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, leones)
 }
 
+func getLeonesID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
 
-var motos = []Motos{
-	{ID: "1", Nombre: "yamaha", Description: "velocidad 1"},
-	{ID: "2", Nombre: "honda", Description: "velocidad 2"},
-	{ID: "3", Nombre: "cbr", Description: "velocidad 3"},
-}
 
-
-func buscarServerPorID(idBuscado int) *Server {
-	for _, server := range frutass {
-		if server.ID == idBuscado {
-			return &server // Retorna una referencia al objeto encontrado
+	var animal Leon
+	for _, a := range leones{
+		if a.ID == id {
+			animal = a
+			break
 		}
 	}
-	return nil // Retorna nil si no se encuentra el objeto
+
+
+	if animal.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Animal no encontrado"})
+		return
+	}
+
+
+	c.IndentedJSON(http.StatusOK, animal)
 }
-
-
-
 
 type Arana struct {
 	ID     int    `json:ID`
@@ -214,29 +212,11 @@ func getAranas(a *gin.Context) {
 
 func getAranaByID(c *gin.Context) {
 	idStr := c.Param("id")
-
-	// Convertir el ID de string a int
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
 		return
 	}
-func getServerByID(c *gin.Context) {
-
-	// Buscar el objeto Server por ID
-	serverEncontrado := buscarServerPorID(id)
-
-	// Verificar si el objeto fue encontrado
-	if serverEncontrado != nil {
-		// Devolver el objeto encontrado como JSON
-		c.JSON(http.StatusOK, serverEncontrado)
-	} else {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Objeto no encontrado"})
-	}
-}
-
-func getMotos(a *gin.Context) {
-	a.IndentedJSON(http.StatusOK, motos)
 	var arana Arana
 	for _, a := range aranas {
 		if a.ID == id {
@@ -255,17 +235,25 @@ func getMotos(a *gin.Context) {
 
 func getCarambombo(z *gin.Context) {
 	z.IndentedJSON(http.StatusOK, carambombos)
-
 }
 
-func getMotosByID(c *gin.Context) {
-	id := c.Param("id")
-	for _, a := range motos {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
+func getCarambomboByID(y *gin.Context) {
+	idStr := y.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		y.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
+		return
+	}
+
+	var carambo Carambombo
+	for _, carambombo := range carambombos {
+		if carambombo.ID == id {
+			carambo = carambombo
+			break
 		}
 	}
+
+	y.JSON(http.StatusOK, carambo)
 }
 
 
@@ -373,10 +361,8 @@ func main() {
 	router.GET("/frutamango", getAllMangos)
   	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
-  router.GET("/server/:id", getServerByID)
-	router.GET("/motos", getMotos)
-	router.GET("/motos/:id", getMotosByID)
   	
+
   
   
   router.Run("localhost:4000")
