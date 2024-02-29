@@ -1,4 +1,4 @@
-// //Edinson
+
 package main
 
 import (
@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// edinson
 type Spider struct {
 	ID          string `json:"id"`
 	Nombre      string `json:"nombre"`
