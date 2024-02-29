@@ -188,9 +188,9 @@ func getFrutaByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, frutaEncontrada)
 }
 
-<<<<<<< HEAD
-// Yerson
-=======
+
+
+
 //Darbin
 type Animal struct {
 	ID          int    `json:"id"`
@@ -319,8 +319,8 @@ func getFrutaByIDD(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
 	}
 }
->>>>>>> f286d7655deeae2dfc17cced1077a98cc9b8fe4c
 
+// Yerson
 type Oso struct {
 	ID          int    `json:"id"`
 	Nombre      string `json:"nombre"`
@@ -354,47 +354,26 @@ func getOsoPorID(c *gin.Context) {
 
 	c.JSON(http.StatusNotFound, gin.H{"error": "Oso no encontrado"})
 }
-
-// Yerson Fin
+// Yerson Fingit
 
 func main() {
 	router := gin.Default()
-	
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-<<<<<<< HEAD
 	router.GET("/osos", getOso)
 	router.GET("/osos/:id", getOsoPorID)
 	router.Run("localhost:4000")
-}
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
-=======
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
->>>>>>> 71c2868eabadedc22a89708c475d88ee5e739c51
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
-<<<<<<< HEAD
->>>>>>> 7016b22bc4ffaafc86cc9991cadfd072d52471dc
-=======
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
->>>>>>> koala
-=======
->>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
 	router.Run("localhost:4000")
 }
 
 
 
-
->>>>>>> f286d7655deeae2dfc17cced1077a98cc9b8fe4c
