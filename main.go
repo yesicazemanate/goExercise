@@ -14,22 +14,6 @@ type Server struct {
     
 }
 
-// Lista de objetos de ejemplo
-
-//yesica zemanate
-type AnimalAve struct{
-ID string `json:"id"`
-Nombre string `json:"nombre"`
-Ubicacion string `json:"ubicacion"`
-Habitat string `json:"habitat"`
-}// yesica zemanate
-
-
-type Alimento struct{
-	ID int `json:"id"`
-	Nombre string `json:"nombre"`
-	Description string `json:"description"`
-}
 
 type Frutas struct {
 	ID          int    `json:"id"`
@@ -44,25 +28,19 @@ type Motos struct {
 }
 
 
-var alimentos = []Alimento{
-	{ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
-	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
-	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
-}
 
 
 
-func getAlimento(a *gin.Context){
-a.IndentedJSON(http.StatusOK, alimentos)
-}
+
+
 
 
 
 ////////SANTIAGO NARVAEZ LASSO
 
 type Arana struct {
-	ID           int     `json:ID`
-	Tipo string `json:ID`
+	ID     int    `json:ID`
+	Tipo   string `json:ID`
 	Nombre string `json:Nombre`
 
 }
@@ -79,17 +57,13 @@ type Animales struct {
 	Nombre string `json:Nombre`
 
 }// yesica zemanate
-var ave =[]AnimalAve{
-	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
-	{ID: "2", Nombre :"Colibrí esmeralda ", Ubicacion: "América Central y del Sur", Habitat: "Bosques tropicales y subtropicales, jardines y áreas con flores"},
-	{ID: "3", Nombre:"Cóndor de los Andes ", Ubicacion: "Cordilleras de los Andes en América del Sur", Habitat: " Cordilleras montañosas, acantilados y cielos abiertos"},
-	}// yesica zemanate
-var alimentos = []Alimento{
-	 {ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
-	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
-	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
+// var ave =[]AnimalAve{
+// 	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
+// 	{ID: "2", Nombre :"Colibrí esmeralda ", Ubicacion: "América Central y del Sur", Habitat: "Bosques tropicales y subtropicales, jardines y áreas con flores"},
+// 	{ID: "3", Nombre:"Cóndor de los Andes ", Ubicacion: "Cordilleras de los Andes en América del Sur", Habitat: " Cordilleras montañosas, acantilados y cielos abiertos"},
+// 	}
 
-}
+
 
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
@@ -132,40 +106,28 @@ var pulgas = []Animales{
 	{ID: 3, Tipo: "Pulga de gatos", Nombre: "En caballo"},
 	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},}
 // yesica zemanate
-func getAve(a *gin.Context){
-	
-a.IndentedJSON(http.StatusOK, ave)
-}
-func getAveId(a *gin.Context){
-	id:= a.Param("id")
-	for _, c := range ave{
-		if c.ID == id{
-		a.IndentedJSON(http.StatusOK,c )	
-		return
-	}
-}}// yesica zemanate
 
+<<<<<<< HEAD
 func getAliimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
 	
 }
+=======
+
+>>>>>>> 5a5f3070ee0051890801eb1262f5de69291e99b2
 // yesica zemanate
-func getAve(a *gin.Context){
-a.IndentedJSON(http.StatusOK, ave)
-}
-func getAveId(a *gin.Context){
-	id:= a.Param("id")
-	for _, c := range ave{
-		if c.ID == id{
-		a.IndentedJSON(http.StatusOK,c )	
-		return
-	}
-}}// yesica zemanate
+// func getAve(a *gin.Context){
+// a.IndentedJSON(http.StatusOK, ave)
+// }
+// func getAveId(a *gin.Context){
+// 	id:= a.Param("id")
+// 	for _, c := range ave{
+// 		if c.ID == id{
+// 		a.IndentedJSON(http.StatusOK,c )	
+// 		return
+// 	}
+// }}
 
-func getAlimento(a *gin.Context){
-a.IndentedJSON(http.StatusOK, alimentos)
-
-}
 
 func getAranas(a *gin.Context) {
 	a.IndentedJSON(http.StatusOK, aranas)
@@ -236,21 +198,28 @@ func getFrutaByID(c *gin.Context) {
 		return
 	}
 
-	var frutaEncontrada Frutas
-	for _, fruta := range fruits {
-		if fruta.ID == id {
-			frutaEncontrada = fruta
+	// Encontrar la fruta por ID
+	var frutaEncontrada *Frutas
+	for _, c := range fruits {
+		if c.ID == id {
+			frutaEncontrada = &c
 			break
+
 		}
 	}
 
-	if frutaEncontrada.Nombre == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-		return
-	}
+	// Comprobar si se encontró la fruta
+	// if frutaEncontrada.ID == nil {
+	// 	c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
+	// 	return
+	// }
 
-	c.JSON(http.StatusOK, frutaEncontrada)
+	// Devolver la fruta encontrada
+	c.IndentedJSON(http.StatusOK, frutaEncontrada)
 }
+
+
+
 
 //Darbin
 type Animal struct {
@@ -306,15 +275,6 @@ var frutas = []*Server{
 }
 
 // Función para buscar una fruta por su ID en una lista de frutas
-func buscarFrutaPorID(idBuscado int) *Server {
-	 for i := range frutas {
-        if frutas[i].ID == idBuscado {
-            return &frutas[i] // Devolver un puntero al objeto encontrado
-        }
-    }
-	return nil // Retorna nil si no se encuentra la fruta
-}
-
 
 //Andrea salazar perez
 type Fruta struct {
@@ -358,6 +318,7 @@ func getAll(c *gin.Context) {
 }
 
 //Andrea salazar perez
+<<<<<<< HEAD
 
 
 //KEVIN //
@@ -412,20 +373,62 @@ func getAnimalByID(c *gin.Context) {
 func main(){
 	router := gin.Default()
 
+// Función handler para obtener una fruta por su ID
+
+	
+// LUISA VILLACORTE
+
+// Yerson
+type Oso struct {
+	ID          int    `json:"id"`
+	Nombre      string `json:"nombre"`
+	Descripcion string `json:"descripcion"`
+}
+
+var osos = []Oso{
+	{ID: 1, Nombre: "Oso Negro Americano", Descripcion: "Habita en Norteamérica."},
+	{ID: 2, Nombre: "Oso Polar", Descripcion: "Habita en el Ártico."},
+	{ID: 3, Nombre: "Oso Panda", Descripcion: "Caracterizado por su pelaje blanco y negro."},
+}
+
+func getOso(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, osos)
+}
+
+func getOsoPorID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID debe ser un número entero"})
+		return
+	}
+
+	for _, oso := range osos {
+		if oso.ID == id {
+			c.JSON(http.StatusOK, oso)
+			return
+		}
+	}
+
+
+	c.JSON(http.StatusNotFound, gin.H{"error": "Oso no encontrado"})
+}
+// Yerson Fingit
+
+func main() {
+	router := gin.Default()
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+	router.GET("/osos", getOso)
+	router.GET("/osos/:id", getOsoPorID)
 
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
-
-
-	router.GET("/frutamango/:id", getFruta)
-	router.GET("/frutamango", getAll)
-
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
+
 
 
 	router.GET("/frutas/:id", getFrutaByIDD)
@@ -437,19 +440,13 @@ router.GET("/animal/:id", getAnimalByID)
 	router.GET("/motos", getMotos)
 	router.GET("/motos/:id", getMotosByID)
 
-	router.GET("/frutas", getFrutas)
-	router.GET("/frutas/:id", getFrutaByID)
-	router.GET("/ave", getAve)
-	router.GET("/ave/:id",getAveId)
 
-	router.GET("/frutas", getFrutas)
-	router.GET("/frutas/:id", getFrutaByID)
-	router.GET("/serpiente", getSerpiente)
-	router.GET("/serpiente/:id", getSerpienteByID)
+
+	// router.GET("/ave", getAve)
+	// router.GET("/ave/:id",getAveId)
 	router.Run("localhost:4000")
 
 }
-
 
 
 
