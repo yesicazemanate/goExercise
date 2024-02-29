@@ -6,6 +6,17 @@ import (
 	"strconv"
 )
 
+
+type Serpiente struct {
+	ID     int    `json:ID`
+	Tipo   string `json:"Tipo"`
+	Nombre string `json:"Nombre"`
+}
+
+var serpiente = []Serpiente{
+	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
+	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
+}
   
 //maryuri
 type Animales struct {
@@ -112,8 +123,26 @@ type Leon struct {
 	ID          int    `json:"id"`
 	Nombre      string `json:"nombre"`
 	Description string `json:"description"`
+
 }
 
+func getSerpiente(s *gin.Context) {
+	s.IndentedJSON(http.StatusOK, serpiente)
+}
+
+func getSerpienteByID(s *gin.Context) {
+	idse := s.Param("id")
+	idint, err := strconv.Atoi(idse)
+	if err != nil {
+		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
+	}
+
+	for _, e := range serpiente {
+		if e.ID == idint {
+			s.IndentedJSON(http.StatusOK, e)
+		}
+	}
+}
 
 var leones = []Leon{
 	{ID: 1, Nombre: "Leon verde", Description: "es muy grande"},
@@ -331,6 +360,8 @@ func main() {
   router.GET("/pulgasM/:id", getByIdPulga)
   router.GET("/frutamango/:id", getMangoById)
 	router.GET("/frutamango", getAllMangos)
+  router.GET("/serpiente", getSerpiente)
+	router.GET("/serpiente/:id", getSerpienteByID)
 
   
   
