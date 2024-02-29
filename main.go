@@ -31,6 +31,12 @@ type Arana struct {
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
 }
+
+type Serpiente struct{
+	ID int `json:ID`
+	Tipo string `json:"Tipo"`
+	Nombre string `json:"Nombre"`
+}
 type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
@@ -40,6 +46,34 @@ type Animales struct {
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
+}
+//Sthefany Rodriguez
+var serpiente = []Serpiente{
+	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
+	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
+}
+
+func getSerpiente(s * gin.Context){
+	s.IndentedJSON(http.StatusOK, serpiente)
+}
+
+func getSerpienteByID(s *gin.Context){
+	idse := s.Param("id")
+	idint, err  := strconv.Atoi(idse)
+	if err != nil {
+		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
+	}
+
+	//Sthefanny Rodriguez
+
+
+	for _, e := range serpiente {
+		if e.ID == idint{
+			s.IndentedJSON(http.StatusOK, e)
+			return
+		}
+	}
+	
 }
 //Maryuri
 var pulgas = []Animales{
@@ -275,6 +309,8 @@ func main(){
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
+	router.GET("/serpiente", getSerpiente)
+	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
 }
 
