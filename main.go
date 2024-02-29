@@ -226,13 +226,10 @@ func main(){
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-<<<<<<< HEAD
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
-=======
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
->>>>>>> 7016b22bc4ffaafc86cc9991cadfd072d52471dc
 	router.Run("localhost:4000")
 }
