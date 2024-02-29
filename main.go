@@ -50,10 +50,7 @@
 // }
 
 package main
-import(
-"github.com/gin-gonic/gin"
-"net/http"
-"strconv"
+
 
 import (
 	"github.com/gin-gonic/gin"
@@ -73,16 +70,22 @@ type Arana struct {
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
 }
-
-var alimentos = []Alimento{
-	 {ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
-	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
-	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
+type Carambombo struct {
+	ID int `json:ID`
+	Nombre string `json:"tipo"`
+	Description string `json:"descripcion"`
 }
+
+
 
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
+}
+var carambombos = []Carambombo{
+	{ID: 1, Nombre:"Carambombo normal", Descripcion:"es amarillo"},
+	{ID: 1, Nombre:"Carambombo Verdoso", Descripcion:"es verde"},
+	{ID: 1, Nombre:"Carambombo Azu", Descripcion:"es azul"},
 }
 
 func getAlimento(a *gin.Context){
@@ -118,12 +121,36 @@ func getAranaByID(c *gin.Context) {
 	c.JSON(http.StatusOK, arana)
 }
 
+// GETS CARAMBOMBO
+func getCarambombo(z *gin.Context) {
+	z.IndentedJSON(http.StatusOK, aranas)
+}
+func getCarambomboByID(y *gin.Context) {
+	idStr := y.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		y.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
+		return
+	}
+
+	var carambombo Carambombo
+	for _, a := range carambombos {
+		if a.ID == id {
+			carambombos = a
+			break
+		}
+	}
+
+	y.JSON(http.StatusOK, carambombo)
+}
 
 func main(){
 	router := gin.Default()
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+	router.GET("/carambombos", getCarambombo)
+	router.GET("/carambombos/:id", getCarambomboByID)
 	router.Run("localhost:4000")
 	
 }
@@ -167,3 +194,5 @@ func main() {
 	router.GET("/frutas/:id", getFrutaByID) // Definir ruta con parámetro ":id"
 	router.Run("localhost:6000")
 }
+
+
