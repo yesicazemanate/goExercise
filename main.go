@@ -5,7 +5,13 @@ import (
 	"net/http"
 	"strconv"
 )
-
+//yesica zemanate
+type AnimalAve struct{
+ID string `json:"id"`
+Nombre string `json:"nombre"`
+Ubicacion string `json:"ubicacion"`
+Habitat string `json:"habitat"`
+}// yesica zemanate
 type Alimento struct{
 	ID int `json:"id"`
 	Nombre string `json:"nombre"`
@@ -23,8 +29,12 @@ type Arana struct {
 	ID           int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-}
-
+}// yesica zemanate
+var ave =[]AnimalAve{
+	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
+	{ID: "2", Nombre :"Colibrí esmeralda ", Ubicacion: "América Central y del Sur", Habitat: "Bosques tropicales y subtropicales, jardines y áreas con flores"},
+	{ID: "3", Nombre:"Cóndor de los Andes ", Ubicacion: "Cordilleras de los Andes en América del Sur", Habitat: " Cordilleras montañosas, acantilados y cielos abiertos"},
+	}// yesica zemanate
 var alimentos = []Alimento{
 	 {ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
 	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
@@ -35,6 +45,19 @@ var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
+// yesica zemanate
+func getAve(a *gin.Context){
+	
+a.IndentedJSON(http.StatusOK, ave)
+}
+func getAveId(a *gin.Context){
+	id:= a.Param("id")
+	for _, c := range ave{
+		if c.ID == id{
+		a.IndentedJSON(http.StatusOK,c )	
+		return
+	}
+}}// yesica zemanate
 
 func getAlimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
@@ -111,5 +134,7 @@ func main(){
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+	router.GET("/ave", getAve)
+	router.GET("/ave/:id",getAveId)
 	router.Run("localhost:4000")
 }
