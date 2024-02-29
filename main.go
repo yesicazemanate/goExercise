@@ -5,10 +5,7 @@ import (
 	"net/http"
 	"strconv"
 )
-<<<<<<< HEAD
 
-=======
->>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 //Brayan Delgado
 type Server struct {
     ID          int
@@ -18,7 +15,6 @@ type Server struct {
 }
 
 // Lista de objetos de ejemplo
-<<<<<<< HEAD
 
 //yesica zemanate
 type AnimalAve struct{
@@ -28,8 +24,7 @@ Ubicacion string `json:"ubicacion"`
 Habitat string `json:"habitat"`
 }// yesica zemanate
 
-=======
->>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
+
 type Alimento struct{
 	ID int `json:"id"`
 	Nombre string `json:"nombre"`
@@ -42,14 +37,34 @@ type Frutas struct {
 	Description string `json:"description"`
 }
 
+type Motos struct {
+	ID          string  `json:"id"`
+	Nombre      string `json:"nombre"`
+	Description string `json:"description"`
+}
+
+
+var alimentos = []Alimento{
+	{ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
+	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
+	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
+}
+
+
+
+func getAlimento(a *gin.Context){
+a.IndentedJSON(http.StatusOK, alimentos)
+}
+
+
+
+////////SANTIAGO NARVAEZ LASSO
+
 type Arana struct {
 	ID           int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-<<<<<<< HEAD
 
-=======
->>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 }
 
 
@@ -62,7 +77,6 @@ type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-<<<<<<< HEAD
 
 }// yesica zemanate
 var ave =[]AnimalAve{
@@ -75,18 +89,13 @@ var alimentos = []Alimento{
 	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
 	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
 
-=======
->>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 }
 
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 //Sthefany Rodriguez
 var serpiente = []Serpiente{
 	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
@@ -121,6 +130,23 @@ var pulgas = []Animales{
 	{ID: 1, Tipo: "Tungidae.", Nombre: "En casa"},
 	{ID: 2, Tipo: "Pulga de perros", Nombre: "En caballo"},
 	{ID: 3, Tipo: "Pulga de gatos", Nombre: "En caballo"},
+	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},}
+// yesica zemanate
+func getAve(a *gin.Context){
+	
+a.IndentedJSON(http.StatusOK, ave)
+}
+func getAveId(a *gin.Context){
+	id:= a.Param("id")
+	for _, c := range ave{
+		if c.ID == id{
+		a.IndentedJSON(http.StatusOK,c )	
+		return
+	}
+}}// yesica zemanate
+
+func getAliimento(a *gin.Context){
+a.IndentedJSON(http.StatusOK, alimentos)
 	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},
 
 }
@@ -281,6 +307,14 @@ var frutas = []*Server{
 }
 
 // Función para buscar una fruta por su ID en una lista de frutas
+func buscarFrutaPorID(idBuscado int) *Server {
+	 for i := range frutas {
+        if frutas[i].ID == idBuscado {
+            return &frutas[i] // Devolver un puntero al objeto encontrado
+        }
+    }
+	return nil // Retorna nil si no se encuentra la fruta
+}
 
 
 //Andrea salazar perez
@@ -348,6 +382,26 @@ func getAll(c *gin.Context) {
 // LUISA VILLACORTE
 
 
+//KEVIN //
+var motos = []Motos{
+	{ID: "1", Nombre: "yamaha", Description: "velocidad 1"},
+	{ID: "2", Nombre: "honda", Description: "velocidad 2"},
+	{ID: "3", Nombre: "cbr", Description: "velocidad 3"},
+}
+
+func getMotos(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, motos)
+}
+
+func getMotosByID(c *gin.Context) {
+	id := c.Param("id")
+	for _, a := range motos {
+		if a.ID == id {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+}
 func main(){
 	router := gin.Default()
 
@@ -366,19 +420,26 @@ func main(){
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 
+
 	router.GET("/frutas/:id", getFrutaByIDD)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
+=======
+	router.GET("/frutas/:id", getFrutaByIDD)
+	router.GET("/motos", getMotos)
+	router.GET("/motos/:id", getMotosByID)
+
 	router.GET("/frutas", getFrutas)
 	router.GET("/frutas/:id", getFrutaByID)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
+
 	router.GET("/frutas", getFrutas)
 	router.GET("/frutas/:id", getFrutaByID)
 	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
-	
+
 }
 
 
