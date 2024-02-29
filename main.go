@@ -478,8 +478,8 @@ func main() {
 	router.GET("/frutamango", getAllMangos)
 	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
-
-	router.GET("/server/:id", getServerByID)
+	
+	router.GET("/fruta/:id", getServerByID)
 	router.GET("/motos", getMotos)
 	router.GET("/motos/:id", getMotosByID)
   
