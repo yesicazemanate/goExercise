@@ -41,7 +41,7 @@ var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
-
+//Sthefany Rodriguez
 var serpiente = []Serpiente{
 	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
 	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
@@ -57,6 +57,9 @@ func getSerpienteByID(s *gin.Context){
 	if err != nil {
 		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
 	}
+
+	//Sthefanny Rodriguez
+
 
 	for _, e := range serpiente {
 		if e.ID == idint{
