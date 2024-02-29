@@ -99,41 +99,42 @@ func getAranaByID(c *gin.Context) {
 }
 ////////SANTIAGO NARVAEZ LASSO
 
+
+// LUISA VILLACORTE
 var fruits = []Frutas{
 	{ID: 1, Nombre: "Sandia", Description: "Fruta tropical"},
 	{ID: 2, Nombre: "Limón", Description: "Fruta ácida"},
 	{ID: 3, Nombre: "Naranja", Description: "Fruta semi-ácida"},
 }
-
-func getFrutaByID(c *gin.Context) {
-	idStr := c.Param("id") 
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato de ID inválido"})
-		return
-	}
-	
-	// Encontrar la fruta por ID
-	var frutaEncontrada *Frutas
-	for _, c := range fruits {
-		if c.ID == id {
-			frutaEncontrada = &c
-			break
-			
-			
-		}
-	}
-	
-	// Comprobar si se encontró la fruta
-	// if frutaEncontrada.ID == nil {
-	// 	c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-	// 	return
-	// }
-	
-	// Devolver la fruta encontrada
-	c.IndentedJSON(http.StatusOK, frutaEncontrada)
+func getFrutas(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, fruits)
 }
 
+func getFrutaByID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
+		return
+	}
+
+	var frutaEncontrada Frutas
+	for _, fruta := range fruits {
+		if fruta.ID == id {
+			frutaEncontrada = fruta
+			break
+		}
+	}
+
+	if frutaEncontrada.Nombre == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
+		return
+	}
+
+	c.JSON(http.StatusOK, frutaEncontrada)
+}
+
+<<<<<<< HEAD
 //Darbin
 type Animal struct {
 	ID          int    `json:"id"`
@@ -220,12 +221,17 @@ func getFrutaByIDD(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
 	}
 }
+=======
+// LUISA VILLACORTE
+
+>>>>>>> Frutas-Lu
 
 func main(){
 	router := gin.Default()
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+<<<<<<< HEAD
 <<<<<<< HEAD
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
@@ -234,5 +240,9 @@ func main(){
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
 >>>>>>> 7016b22bc4ffaafc86cc9991cadfd072d52471dc
+=======
+	router.GET("/frutas", getFrutas)
+	router.GET("/frutas/:id", getFrutaByID)
+>>>>>>> Frutas-Lu
 	router.Run("localhost:4000")
 }
