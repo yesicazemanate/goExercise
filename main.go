@@ -42,6 +42,12 @@ type Arana struct {
 	Nombre string `json:Nombre`
 <<<<<<< HEAD
 }
+
+type Serpiente struct{
+	ID int `json:ID`
+	Tipo string `json:"Tipo"`
+	Nombre string `json:"Nombre"`
+}
 type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
@@ -65,6 +71,34 @@ var aranas = []Arana{
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
 <<<<<<< HEAD
+//Sthefany Rodriguez
+var serpiente = []Serpiente{
+	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
+	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
+}
+
+func getSerpiente(s * gin.Context){
+	s.IndentedJSON(http.StatusOK, serpiente)
+}
+
+func getSerpienteByID(s *gin.Context){
+	idse := s.Param("id")
+	idint, err  := strconv.Atoi(idse)
+	if err != nil {
+		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
+	}
+
+	//Sthefanny Rodriguez
+
+
+	for _, e := range serpiente {
+		if e.ID == idint{
+			s.IndentedJSON(http.StatusOK, e)
+			return
+		}
+	}
+	
+}
 //Maryuri
 var pulgas = []Animales{
 	{ID: 1, Tipo: "Tungidae.", Nombre: "En casa"},
@@ -336,7 +370,12 @@ func main(){
 =======
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
+<<<<<<< HEAD
 >>>>>>> ce9d63f6cc3475b469045cef020c344e48aee982
+=======
+	router.GET("/serpiente", getSerpiente)
+	router.GET("/serpiente/:id", getSerpienteByID)
+>>>>>>> 71d5b98b78e37450e9615c127f08ccbbdb86058d
 	router.Run("localhost:4000")
 }
 
