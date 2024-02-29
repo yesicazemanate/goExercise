@@ -6,13 +6,13 @@ import (
 	"strconv"
 )
 
-type Fruta struct {
+type Mango struct {
 	ID          int    `json:"id"`
 	Nombre      string `json:"nombre"`
 	Description string `json:"description"`
 }
 
-var mangos = []Fruta{
+var mangos = []Mango{
 	{ID: 1, Nombre: "Mango verde", Description: "Es un mango que todavía está verde y no es jugoso"},
 	{ID: 2, Nombre: "Mango rojo", Description: "Es un mango que es muy jugoso ya que su color rojo lo demuestra"},
 	{ID: 3, Nombre: "Mango amarillo", Description: "Es un mango que está entre jugoso y verde"},
@@ -26,7 +26,7 @@ func getFruta(c *gin.Context) {
 		return
 	}
 
-	var mango Fruta
+	var mango Mango
 	for _, item := range mangos {
 		if item.ID == id {
 			mango = item
@@ -54,3 +54,5 @@ func main() {
 	router.GET("/frutamango", getAll)
 	router.Run("localhost:4000")
 }
+
+
