@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -6,7 +7,6 @@ import (
 	"strconv"
 )
 
-<<<<<<< HEAD
 type Panda struct {
 	ID          string `json:"id"`
 	Nombre      string `json:"nombre"`
@@ -14,8 +14,6 @@ type Panda struct {
 
 }
 
-=======
->>>>>>> f0fcc9b28994a4f634d53f08344c5306207037e6
 type Serpiente struct {
 	ID     int    `json:ID`
 	Tipo   string `json:"Tipo"`
@@ -229,7 +227,6 @@ func getAranaByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, arana)
 }
-
 
 
 func getCarambombo(z *gin.Context) {
