@@ -62,6 +62,7 @@ type Arana struct {
 	Nombre string `json:Nombre`
 }
 
+
 type Serpiente struct{
 	ID int `json:ID`
 	Tipo string `json:"Tipo"`
@@ -137,6 +138,7 @@ func getAveId(a *gin.Context){
 
 func getAliimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
+	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},
 }
 
 func getAranas(a *gin.Context) {
@@ -287,6 +289,7 @@ func buscarFrutaPorID(idBuscado int) *Server {
 	return nil // Retorna nil si no se encuentra la fruta
 }
 
+
 //Andrea salazar perez
 type Fruta struct {
 	ID          int    `json:"id"`
@@ -330,9 +333,6 @@ func getAll(c *gin.Context) {
 
 //Andrea salazar perez
 // Función handler para obtener una fruta por su ID
-func getFrutaByIDD(c *gin.Context) {
-	// Obtener el ID de la fruta desde la URL
-	idStr := c.Param("id")
 
 	// Convertir el ID de string a int
 	id, err := strconv.Atoi(idStr)
@@ -377,7 +377,7 @@ func getMotosByID(c *gin.Context) {
 }
 func main(){
 	router := gin.Default()
-	
+
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
 
@@ -394,6 +394,10 @@ func main(){
 	router.GET("/frutas/:id", getFrutaByID)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
+	
+	router.GET("/frutas", getFrutas)
+	router.GET("/frutas/:id", getFrutaByID)
+	
 	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
