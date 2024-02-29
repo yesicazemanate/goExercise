@@ -31,6 +31,13 @@ type Arana struct {
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
 }
+
+
+type Serpiente struct{
+	ID int `json:ID`
+	Tipo string `json:"Tipo"`
+	Nombre string `json:"Nombre"`
+}
 type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
@@ -40,6 +47,34 @@ type Animales struct {
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
+}
+//Sthefany Rodriguez
+var serpiente = []Serpiente{
+	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
+	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
+}
+
+func getSerpiente(s * gin.Context){
+	s.IndentedJSON(http.StatusOK, serpiente)
+}
+
+func getSerpienteByID(s *gin.Context){
+	idse := s.Param("id")
+	idint, err  := strconv.Atoi(idse)
+	if err != nil {
+		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
+	}
+
+	//Sthefanny Rodriguez
+
+
+	for _, e := range serpiente {
+		if e.ID == idint{
+			s.IndentedJSON(http.StatusOK, e)
+			return
+		}
+	}
+	
 }
 //Maryuri
 var pulgas = []Animales{
@@ -99,39 +134,39 @@ func getAranaByID(c *gin.Context) {
 }
 ////////SANTIAGO NARVAEZ LASSO
 
+
+// LUISA VILLACORTE
 var fruits = []Frutas{
 	{ID: 1, Nombre: "Sandia", Description: "Fruta tropical"},
 	{ID: 2, Nombre: "Limón", Description: "Fruta ácida"},
 	{ID: 3, Nombre: "Naranja", Description: "Fruta semi-ácida"},
 }
+func getFrutas(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, fruits)
+}
 
 func getFrutaByID(c *gin.Context) {
-	idStr := c.Param("id") 
+	idStr := c.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato de ID inválido"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
 		return
 	}
-	
-	// Encontrar la fruta por ID
-	var frutaEncontrada *Frutas
-	for _, c := range fruits {
-		if c.ID == id {
-			frutaEncontrada = &c
+
+	var frutaEncontrada Frutas
+	for _, fruta := range fruits {
+		if fruta.ID == id {
+			frutaEncontrada = fruta
 			break
-			
-			
 		}
 	}
-	
-	// Comprobar si se encontró la fruta
-	// if frutaEncontrada.ID == nil {
-	// 	c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-	// 	return
-	// }
-	
-	// Devolver la fruta encontrada
-	c.IndentedJSON(http.StatusOK, frutaEncontrada)
+
+	if frutaEncontrada.Nombre == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
+		return
+	}
+
+	c.JSON(http.StatusOK, frutaEncontrada)
 }
 
 //Darbin
@@ -234,23 +269,26 @@ func getAll(c *gin.Context) {
 //Andrea salazar perez
 // Función handler para obtener una fruta por su ID
 
+// LUISA VILLACORTE
+
 
 func main(){
 	router := gin.Default()
-	
+
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
-
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	
-
-
+	router.GET("/frutas", getFrutas)
+	router.GET("/frutas/:id", getFrutaByID)
+	
+	router.GET("/serpiente", getSerpiente)
+	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
 }
 
