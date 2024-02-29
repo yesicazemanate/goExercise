@@ -5,7 +5,10 @@ import (
 	"net/http"
 	"strconv"
 )
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 //Brayan Delgado
 type Server struct {
     ID          int
@@ -15,6 +18,7 @@ type Server struct {
 }
 
 // Lista de objetos de ejemplo
+<<<<<<< HEAD
 
 //yesica zemanate
 type AnimalAve struct{
@@ -24,6 +28,8 @@ Ubicacion string `json:"ubicacion"`
 Habitat string `json:"habitat"`
 }// yesica zemanate
 
+=======
+>>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 type Alimento struct{
 	ID int `json:"id"`
 	Nombre string `json:"nombre"`
@@ -40,8 +46,12 @@ type Arana struct {
 	ID           int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 }
+
 
 type Serpiente struct{
 	ID int `json:ID`
@@ -52,6 +62,7 @@ type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
+<<<<<<< HEAD
 
 }// yesica zemanate
 var ave =[]AnimalAve{
@@ -64,13 +75,18 @@ var alimentos = []Alimento{
 	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
 	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
 
+=======
+>>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 }
 
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1451024c5e1134858585b76b59f92bf124369ecf
 //Sthefany Rodriguez
 var serpiente = []Serpiente{
 	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
@@ -106,6 +122,7 @@ var pulgas = []Animales{
 	{ID: 2, Tipo: "Pulga de perros", Nombre: "En caballo"},
 	{ID: 3, Tipo: "Pulga de gatos", Nombre: "En caballo"},
 	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},
+
 }
 // yesica zemanate
 func getAve(a *gin.Context){
@@ -264,14 +281,7 @@ var frutas = []*Server{
 }
 
 // Función para buscar una fruta por su ID en una lista de frutas
-func buscarFrutaPorID(idBuscado int) *Fruta {
-	for _, fruta := range frutas {
-		if fruta.ID == idBuscado {
-			return &fruta // Retorna una referencia a la fruta encontrada
-		}
-	}
-	return nil // Retorna nil si no se encuentra la fruta
-}
+
 
 //Andrea salazar perez
 type Fruta struct {
@@ -316,9 +326,6 @@ func getAll(c *gin.Context) {
 
 //Andrea salazar perez
 // Función handler para obtener una fruta por su ID
-func getFrutaByIDD(c *gin.Context) {
-	// Obtener el ID de la fruta desde la URL
-	idStr := c.Param("id")
 
 	// Convertir el ID de string a int
 	id, err := strconv.Atoi(idStr)
@@ -338,12 +345,18 @@ func getFrutaByIDD(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
 	}
 }
+// LUISA VILLACORTE
+
 
 func main(){
 	router := gin.Default()
-	
+
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+
+	router.GET("/frutamango/:id", getFruta)
+	router.GET("/frutamango", getAll)
+
 
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
@@ -352,22 +365,20 @@ func main(){
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
+
 	router.GET("/frutas/:id", getFrutaByIDD)
-
-
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-
-
 	router.GET("/frutas", getFrutas)
 	router.GET("/frutas/:id", getFrutaByID)
-
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-
+	router.GET("/frutas", getFrutas)
+	router.GET("/frutas/:id", getFrutaByID)
 	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
+	
 }
 
 
