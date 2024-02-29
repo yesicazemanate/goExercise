@@ -6,6 +6,90 @@ import (
 	"strconv"
 )
 
+
+
+//YERSON
+type Oso struct {
+	ID          int    `json:"id"`
+	Nombre      string `json:"nombre"`
+	Descripcion string `json:"descripcion"`
+}
+
+var osos = []Oso{
+	{ID: 1, Nombre: "Oso Negro Americano", Descripcion: "Habita en Norteamérica."},
+	{ID: 2, Nombre: "Oso Polar", Descripcion: "Habita en el Ártico."},
+	{ID: 3, Nombre: "Oso Panda", Descripcion: "Caracterizado por su pelaje blanco y negro."},
+}
+
+func getOso(c *gin.Context) {
+    c.IndentedJSON(http.StatusOK,osos)
+}
+
+func getOsoPorID(c *gin.Context) {
+    idStr := c.Param("id")
+    id, err := strconv.Atoi(idStr)
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Error al convertir ID a entero"})
+        return
+    }
+
+    for _, oso := range osos {
+        if oso.ID == id {
+            c.JSON(http.StatusOK, oso)
+            return
+        }
+    }
+
+    c.JSON(http.StatusNotFound, gin.H{"error": "Oso no encontrado"})
+}
+
+type Leon struct {
+	ID          int    `json:"id"`
+	Nombre      string `json:"nombre"`
+	Description string `json:"description"`
+}
+
+
+
+var leones = []Leon{
+	{ID: 1, Nombre: "Leon verde", Description: "es muy grande"},
+	{ID: 2, Nombre: "Leon rojo", Description: "es muy grande"},
+	{ID: 3, Nombre: "Leon negro", Description: "es muy grande"},
+	{ID: 4, Nombre: "Leon gris", Description: "es muy grande"},
+
+}
+
+func getleon(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, leones)
+}
+
+func getLeonesID(c *gin.Context) {
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
+
+
+	var animal Leon
+	for _, a := range leones{
+		if a.ID == id {
+			animal = a
+			break
+		}
+	}
+
+
+	if animal.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Animal no encontrado"})
+		return
+	}
+
+
+	c.IndentedJSON(http.StatusOK, animal)
+}
+
 type Arana struct {
 	ID     int    `json:ID`
 	Tipo   string `json:ID`
@@ -80,6 +164,7 @@ func getCarambomboByID(y *gin.Context) {
 	y.JSON(http.StatusOK, carambo)
 }
 
+
 // Luisa Villacorte
 type Naranjas struct {
 	ID          int    `json:"id"`
@@ -120,13 +205,25 @@ func getNaranjaByID(c *gin.Context) {
 
 //Luisa Villacorte
 
+
 func main() {
 	router := gin.Default()
+	router.GET("/leones", getleon)
+	router.GET("/leones/:id", getLeonesID)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
 	router.GET("/carambombo", getCarambombo)
 	router.GET("/carambombo/:id", getCarambomboByID)
 	router.GET("/naranja", getNaranjas)
 	router.GET("/naranja/:id", getNaranjaByID)
-	router.Run("localhost:4000")
+	router.GET("/osos", getOso)
+	router.GET("/osos/:id", getOsoPorID)
+
+
+  
+  
+  router.Run("localhost:4000")
 }
+
+
+ 
