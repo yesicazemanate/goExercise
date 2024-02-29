@@ -147,8 +147,7 @@ func getAveId(a *gin.Context){
 
 func getAliimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
-	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},
-
+	
 }
 // yesica zemanate
 func getAve(a *gin.Context){
@@ -359,27 +358,6 @@ func getAll(c *gin.Context) {
 }
 
 //Andrea salazar perez
-// Función handler para obtener una fruta por su ID
-
-	// Convertir el ID de string a int
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
-		return
-	}
-
-	// Buscar la fruta por ID
-	frutaEncontrada := buscarFrutaPorID(id)
-
-	// Verificar si la fruta fue encontrada
-	if frutaEncontrada != nil {
-		// Devolver la fruta encontrada como JSON
-		c.JSON(http.StatusOK, frutaEncontrada)
-	} else {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-	}
-}
-// LUISA VILLACORTE
 
 
 //KEVIN //
@@ -402,6 +380,35 @@ func getMotosByID(c *gin.Context) {
 		}
 	}
 }
+
+//jossie aranda 
+type Panda struct{
+	ID string `json:"id"`
+	Nombre string `json:"nombre"`
+	Description string `json:"description"`
+}
+
+var animal = []Panda{
+	 {ID: "1", Nombre:"oso", Description: "es grande "},
+	{ID:"2" , Nombre:"perro", Description: "son bravos"},
+	{ID: "3", Nombre:"gato", Description: "tienen grandes uñas"},
+}
+func getanimal(a *gin.Context){
+a.IndentedJSON(http.StatusOK, animal)
+
+}
+func getAnimalByID(c *gin.Context) {
+	
+	 id := c.Param("id") 
+	for _,a := range animal{
+		if a.ID == id{
+			c.IndentedJSON(http.StatusOK,a)
+			return
+		}
+	}
+	
+}
+//jossie aranda 
 func main(){
 	router := gin.Default()
 
@@ -424,7 +431,8 @@ func main(){
 	router.GET("/frutas/:id", getFrutaByIDD)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-=======
+     router.GET("/alimentos", getAlimento)
+router.GET("/animal/:id", getAnimalByID)
 	router.GET("/frutas/:id", getFrutaByIDD)
 	router.GET("/motos", getMotos)
 	router.GET("/motos/:id", getMotosByID)
