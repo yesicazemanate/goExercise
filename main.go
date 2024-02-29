@@ -270,16 +270,21 @@ func main(){
 	router.GET("/aranas/:id", getAranaByID)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
-=======
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
+<<<<<<< HEAD
 >>>>>>> 7016b22bc4ffaafc86cc9991cadfd072d52471dc
 =======
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
 >>>>>>> koala
+=======
+>>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
 	router.Run("localhost:4000")
 }
