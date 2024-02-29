@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// edinson
+// edin
 type Spider struct {
 	ID          string `json:"id"`
 	Nombre      string `json:"nombre"`

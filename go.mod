@@ -1,4 +1,4 @@
-module gitgub-
+module github.com/api-rest-go
 
 go 1.22.0
 
