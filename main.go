@@ -69,41 +69,41 @@ func getAranaByID(c *gin.Context) {
 	c.JSON(http.StatusOK, arana)
 }
 
-
+// LUISA VILLACORTE
 var fruits = []Frutas{
 	{ID: 1, Nombre: "Sandia", Description: "Fruta tropical"},
 	{ID: 2, Nombre: "Limón", Description: "Fruta ácida"},
 	{ID: 3, Nombre: "Naranja", Description: "Fruta semi-ácida"},
 }
+func getFrutas(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, fruits)
+}
 
 func getFrutaByID(c *gin.Context) {
-	idStr := c.Param("id") 
+	idStr := c.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Formato de ID inválido"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
 		return
 	}
-	
-	// Encontrar la fruta por ID
-	var frutaEncontrada *Frutas
-	for _, c := range fruits {
-		if c.ID == id {
-			frutaEncontrada = &c
+
+	var frutaEncontrada Frutas
+	for _, fruta := range fruits {
+		if fruta.ID == id {
+			frutaEncontrada = fruta
 			break
-			
-			
 		}
 	}
-	
-	// Comprobar si se encontró la fruta
-	// if frutaEncontrada.ID == nil {
-	// 	c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-	// 	return
-	// }
-	
-	// Devolver la fruta encontrada
-	c.IndentedJSON(http.StatusOK, frutaEncontrada)
+
+	if frutaEncontrada.Nombre == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
+		return
+	}
+
+	c.JSON(http.StatusOK, frutaEncontrada)
 }
+
+// LUISA VILLACORTE
 
 
 func main(){
@@ -111,5 +111,7 @@ func main(){
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+	router.GET("/frutas", getFrutas)
+	router.GET("/frutas/:id", getFrutaByID)
 	router.Run("localhost:4000")
 }
