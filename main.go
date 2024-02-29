@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
+<<<<<<< HEAD
 type Panda struct {
 	ID          string `json:"id"`
 	Nombre      string `json:"nombre"`
@@ -13,6 +14,8 @@ type Panda struct {
 
 }
 
+=======
+>>>>>>> f0fcc9b28994a4f634d53f08344c5306207037e6
 type Serpiente struct {
 	ID     int    `json:ID`
 	Tipo   string `json:"Tipo"`
@@ -141,6 +144,7 @@ func getSerpiente(s *gin.Context) {
 	s.IndentedJSON(http.StatusOK, serpiente)
 }
 
+
 func getSerpienteByID(s *gin.Context) {
 	idse := s.Param("id")
 	idint, err := strconv.Atoi(idse)
@@ -212,7 +216,6 @@ func getAranaByID(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
 		return
 	}
-
 	var arana Arana
 	for _, a := range aranas {
 		if a.ID == id {
@@ -220,14 +223,14 @@ func getAranaByID(c *gin.Context) {
 			break
 		}
 	}
-
 	if arana.Nombre == "" {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Arana no encontrada"})
 		return
 	}
-
 	c.JSON(http.StatusOK, arana)
 }
+
+
 
 func getCarambombo(z *gin.Context) {
 	z.IndentedJSON(http.StatusOK, carambombos)
@@ -349,18 +352,16 @@ func main() {
 	router.GET("/naranja/:id", getNaranjaByID)
 	router.GET("/osos", getOso)
 	router.GET("/osos/:id", getOsoPorID)
-  router.GET("/ave", getAve)
+  	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-  router.GET("/pulgasM", getPulga)
-  router.GET("/pulgasM/:id", getByIdPulga)
-  router.GET("/frutamango/:id", getMangoById)
+  	router.GET("/pulgasM", getPulga)
+  	router.GET("/pulgasM/:id", getByIdPulga)	
+  	router.GET("/frutamango/:id", getMangoById)
 	router.GET("/frutamango", getAllMangos)
-  router.GET("/serpiente", getSerpiente)
+  	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
 	router.GET("/alimentos", getAlimento)
 	router.GET("/animal/:id", getAnimalByID)
-
-  
   
   router.Run("localhost:4000")
 }
