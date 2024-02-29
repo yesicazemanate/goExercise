@@ -99,10 +99,6 @@ var pulgas = []Animales{
 	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},}
 // yesica zemanate
 
-func getAliimento(a *gin.Context){
-a.IndentedJSON(http.StatusOK, alimentos)
-	
-}
 
 // yesica zemanate
 // func getAve(a *gin.Context){
@@ -359,11 +355,6 @@ func getAnimalByID(c *gin.Context) {
 	
 }
 //jossie aranda 
-func main(){
-	router := gin.Default()
-
-// Función handler para obtener una fruta por su ID
-
 	
 // LUISA VILLACORTE
 
@@ -380,28 +371,7 @@ var osos = []Oso{
 	{ID: 3, Nombre: "Oso Panda", Descripcion: "Caracterizado por su pelaje blanco y negro."},
 }
 
-func getOso(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, osos)
-}
 
-func getOsoPorID(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ID debe ser un número entero"})
-		return
-	}
-
-	for _, oso := range osos {
-		if oso.ID == id {
-			c.JSON(http.StatusOK, oso)
-			return
-		}
-	}
-
-
-	c.JSON(http.StatusNotFound, gin.H{"error": "Oso no encontrado"})
-}
 
 ///edinson
 type Aranass struct {
@@ -416,19 +386,7 @@ var aranass = []Aranass{
 	{ID: "3", Nombre: "Licósidos", Description: "arañas que vagan en el suelo, excavando pequeñas galerías verticales u ocupando grietas naturales desde las que acechan a sus presas, cuya presencia detectan por las vibraciones del suelo."},
 }
 
-func getAranass(a *gin.Context) {
-	a.IndentedJSON(http.StatusOK, aranass)
-}
 
-func getAranassByID(c *gin.Context) {
-	id := c.Param("id")
-	for _, a := range aranass {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
-	}
-}
 
 ///edinson
 // Yerson Fingit
@@ -445,23 +403,14 @@ func main() {
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
-
-	router.GET("/aranass", getAranass)
-	router.GET("/aranass/:id", getAranassByID)
 	router.Run("localhost:4000")
 
-	router.GET("/frutas/:id", getFrutaByIDD)
-	router.GET("/ave", getAve)
-	router.GET("/ave/:id",getAveId)
-     router.GET("/alimentos", getAlimento)
+	
 router.GET("/animal/:id", getAnimalByID)
-	router.GET("/frutas/:id", getFrutaByIDD)
 	router.GET("/motos", getMotos)
 	router.GET("/motos/:id", getMotosByID)
 	router.GET("/frutas", getFrutas)
 	router.GET("/frutas/:id", getFrutaByID)
-	router.GET("/ave", getAve)
-	router.GET("/ave/:id",getAveId)
 	
 	router.GET("/frutas", getFrutas)
 	router.GET("/frutas/:id", getFrutaByID)
