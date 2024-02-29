@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 )
-<<<<<<< HEAD
+
 //Brayan Delgado
 type Server struct {
     ID          int
@@ -15,7 +15,7 @@ type Server struct {
 }
 
 // Lista de objetos de ejemplo
-=======
+
 //yesica zemanate
 type AnimalAve struct{
 ID string `json:"id"`
@@ -23,7 +23,7 @@ Nombre string `json:"nombre"`
 Ubicacion string `json:"ubicacion"`
 Habitat string `json:"habitat"`
 }// yesica zemanate
->>>>>>> koala
+
 type Alimento struct{
 	ID int `json:"id"`
 	Nombre string `json:"nombre"`
@@ -40,13 +40,13 @@ type Arana struct {
 	ID           int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-<<<<<<< HEAD
+
 }
 type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-=======
+
 }// yesica zemanate
 var ave =[]AnimalAve{
 	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
@@ -57,24 +57,23 @@ var alimentos = []Alimento{
 	 {ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
 	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
 	{ID: 1, Nombre:"Buñuelos", Description: "redondos"},
->>>>>>> koala
+
 }
 
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
-<<<<<<< HEAD
+
 //Maryuri
 var pulgas = []Animales{
 	{ID: 1, Tipo: "Tungidae.", Nombre: "En casa"},
 	{ID: 2, Tipo: "Pulga de perros", Nombre: "En caballo"},
 	{ID: 3, Tipo: "Pulga de gatos", Nombre: "En caballo"},
 	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},
-=======
+}
 // yesica zemanate
 func getAve(a *gin.Context){
-	
 a.IndentedJSON(http.StatusOK, ave)
 }
 func getAveId(a *gin.Context){
@@ -88,7 +87,7 @@ func getAveId(a *gin.Context){
 
 func getAlimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
->>>>>>> koala
+
 }
 
 func getAranas(a *gin.Context) {
@@ -310,29 +309,18 @@ func main(){
 	
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
-=======
+
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
->>>>>>> 71c2868eabadedc22a89708c475d88ee5e739c51
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
-<<<<<<< HEAD
->>>>>>> 7016b22bc4ffaafc86cc9991cadfd072d52471dc
-=======
+
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
->>>>>>> koala
-=======
->>>>>>> 338b3ecd1ac352f2ed65df86421f63fa45c2710c
+
 	router.Run("localhost:4000")
 }
 
