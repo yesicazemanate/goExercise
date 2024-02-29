@@ -309,7 +309,6 @@ func main(){
 	
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
 	router.GET("/pulgasM", getPulga)
