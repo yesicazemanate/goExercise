@@ -6,14 +6,12 @@ import (
 	"strconv"
 )
 
-//Brayan Delgado
+// Brayan Delgado
 type Server struct {
-    ID          int
-    Nombre      string
-    Description string
-    
+	ID          int
+	Nombre      string
+	Description string
 }
-
 
 type Frutas struct {
 	ID          int    `json:"id"`
@@ -22,19 +20,10 @@ type Frutas struct {
 }
 
 type Motos struct {
-	ID          string  `json:"id"`
+	ID          string `json:"id"`
 	Nombre      string `json:"nombre"`
 	Description string `json:"description"`
 }
-
-
-
-
-
-
-
-
-
 
 ////////SANTIAGO NARVAEZ LASSO
 
@@ -42,71 +31,65 @@ type Arana struct {
 	ID     int    `json:ID`
 	Tipo   string `json:ID`
 	Nombre string `json:Nombre`
-
 }
 
-
-type Serpiente struct{
-	ID int `json:ID`
-	Tipo string `json:"Tipo"`
+type Serpiente struct {
+	ID     int    `json:ID`
+	Tipo   string `json:"Tipo"`
 	Nombre string `json:"Nombre"`
 }
 type Animales struct {
-	ID         int     `json:ID`
-	Tipo string `json:ID`
+	ID     int    `json:ID`
+	Tipo   string `json:ID`
 	Nombre string `json:Nombre`
-
-}// yesica zemanate
+} // yesica zemanate
 // var ave =[]AnimalAve{
 // 	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
 // 	{ID: "2", Nombre :"Colibrí esmeralda ", Ubicacion: "América Central y del Sur", Habitat: "Bosques tropicales y subtropicales, jardines y áreas con flores"},
 // 	{ID: "3", Nombre:"Cóndor de los Andes ", Ubicacion: "Cordilleras de los Andes en América del Sur", Habitat: " Cordilleras montañosas, acantilados y cielos abiertos"},
 // 	}
 
-
-
 var aranas = []Arana{
 	{ID: 1, Tipo: "Tarantula", Nombre: "kidd keo"},
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
 
-//Sthefany Rodriguez
+// Sthefany Rodriguez
 var serpiente = []Serpiente{
 	{ID: 1, Tipo: "Cobra Real", Nombre: "Ophiophagus"},
 	{ID: 2, Tipo: "Mamba Negra ", Nombre: "Dendroaspis "},
 }
 
-func getSerpiente(s * gin.Context){
+func getSerpiente(s *gin.Context) {
 	s.IndentedJSON(http.StatusOK, serpiente)
 }
 
-func getSerpienteByID(s *gin.Context){
+func getSerpienteByID(s *gin.Context) {
 	idse := s.Param("id")
-	idint, err  := strconv.Atoi(idse)
+	idint, err := strconv.Atoi(idse)
 	if err != nil {
 		s.IndentedJSON(http.StatusNotFound, gin.H{"message": "Serpiente no encontrada"})
 	}
 
 	//Sthefanny Rodriguez
 
-
 	for _, e := range serpiente {
-		if e.ID == idint{
+		if e.ID == idint {
 			s.IndentedJSON(http.StatusOK, e)
 			return
 		}
 	}
-	
+
 }
 
-//Maryuri
+// Maryuri
 var pulgas = []Animales{
 	{ID: 1, Tipo: "Tungidae.", Nombre: "En casa"},
 	{ID: 2, Tipo: "Pulga de perros", Nombre: "En caballo"},
 	{ID: 3, Tipo: "Pulga de gatos", Nombre: "En caballo"},
-	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"},}
-// yesica zemanate
+	{ID: 4, Tipo: "Pulga de santi", Nombre: "En caballo"}}
 
+// yesica zemanate
 
 // yesica zemanate
 // func getAve(a *gin.Context){
@@ -116,36 +99,35 @@ var pulgas = []Animales{
 // 	id:= a.Param("id")
 // 	for _, c := range ave{
 // 		if c.ID == id{
-// 		a.IndentedJSON(http.StatusOK,c )	
+// 		a.IndentedJSON(http.StatusOK,c )
 // 		return
 // 	}
 // }}
-
 
 func getAranas(a *gin.Context) {
 	a.IndentedJSON(http.StatusOK, aranas)
 }
 
-//Get Maryuri
+// Get Maryuri
 func getPulga(m *gin.Context) {
 	m.IndentedJSON(http.StatusOK, pulgas)
 }
-//GET by Id MARYURI
-func getByIdPulga(m * gin.Context){
+
+// GET by Id MARYURI
+func getByIdPulga(m *gin.Context) {
 	idStr := m.Param("id")
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
-			m.IndentedJSON(http.StatusNotFound, gin.H{"message": "id not found"})
+		m.IndentedJSON(http.StatusNotFound, gin.H{"message": "id not found"})
 	}
-	for _, ma := range pulgas{
-		if ma.ID == id{
+	for _, ma := range pulgas {
+		if ma.ID == id {
 			m.IndentedJSON(http.StatusOK, ma)
 			return
 		}
 	}
 
 }
-
 
 func getAranaByID(c *gin.Context) {
 	idStr := c.Param("id")
@@ -170,8 +152,8 @@ func getAranaByID(c *gin.Context) {
 
 	c.JSON(http.StatusOK, arana)
 }
-////////SANTIAGO NARVAEZ LASSO
 
+////////SANTIAGO NARVAEZ LASSO
 
 // LUISA VILLACORTE
 var fruits = []Frutas{
@@ -179,6 +161,7 @@ var fruits = []Frutas{
 	{ID: 2, Nombre: "Limón", Description: "Fruta ácida"},
 	{ID: 3, Nombre: "Naranja", Description: "Fruta semi-ácida"},
 }
+
 func getFrutas(a *gin.Context) {
 	a.IndentedJSON(http.StatusOK, fruits)
 }
@@ -211,10 +194,7 @@ func getFrutaByID(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, frutaEncontrada)
 }
 
-
-
-
-//Darbin
+// Darbin
 type Animal struct {
 	ID          int    `json:"id"`
 	Nombre      string `json:"nombre"`
@@ -226,7 +206,6 @@ var animales = []Animal{
 	{ID: 2, Nombre: "Leon rojo", Description: "es muy grande"},
 	{ID: 3, Nombre: "Leon negro", Description: "es muy grande"},
 	{ID: 4, Nombre: "Leon gris", Description: "es muy grande"},
-
 }
 
 func getAnimales(c *gin.Context) {
@@ -241,7 +220,6 @@ func getAnimal(c *gin.Context) {
 		return
 	}
 
-
 	var animal Animal
 	for _, a := range animales {
 		if a.ID == id {
@@ -250,15 +228,14 @@ func getAnimal(c *gin.Context) {
 		}
 	}
 
-
 	if animal.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Animal no encontrado"})
 		return
 	}
 
-
 	c.IndentedJSON(http.StatusOK, animal)
 }
+
 // BRAYAN DELGADO//
 var frutas = []*Server{
 	{ID: 1, Nombre: "Manzana", Description: "fruta que se da en climas frios"},
@@ -269,7 +246,7 @@ var frutas = []*Server{
 
 // Función para buscar una fruta por su ID en una lista de frutas
 
-//Andrea salazar perez
+// Andrea salazar perez
 type Fruta struct {
 	ID          int    `json:"id"`
 	Nombre      string `json:"nombre"`
@@ -313,7 +290,6 @@ func getAll(c *gin.Context) {
 //Andrea salazar perez
 // Función handler para obtener una fruta por su ID
 
-	
 // LUISA VILLACORTE
 
 // Yerson
@@ -350,15 +326,51 @@ func getOsoPorID(c *gin.Context) {
 
 	c.JSON(http.StatusNotFound, gin.H{"error": "Oso no encontrado"})
 }
+
 // Yerson Fingit
 
+// Steven Carambombos
+type Carambombo struct {
+	ID          int    `json:"ID"`
+	Nombre      string `json:"tipo"`
+	Description string `json:"descripcion"`
+}
+
+var carambombos = []Carambombo{
+	{ID: 1, Nombre: "Carambombo normal", Description: "es amarillo"},
+	{ID: 2, Nombre: "Carambombo Verdoso", Description: "es verde"},
+	{ID: 3, Nombre: "Carambombo Azu", Description: "es azul"},
+}
+
+// GETS CARAMBOMBO
+func getCarambombo(z *gin.Context) {
+	z.IndentedJSON(http.StatusOK, carambombos)
+}
+func getCarambomboByID(y *gin.Context) {
+	idStr := y.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		y.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
+		return
+	}
+	var carambos Carambombo
+	for _, carambombo := range carambombos {
+		if carambombo.ID == id {
+			carambos = carambombo
+			break
+		}
+	}
+
+	y.JSON(http.StatusOK, carambos)
+}
 func main() {
 	router := gin.Default()
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
 	router.GET("/osos", getOso)
 	router.GET("/osos/:id", getOsoPorID)
-
+	router.GET("/carambombos", getCarambombo)
+	router.GET("/carambombos/:id", getCarambomboByID)
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
 	router.GET("/pulgasM", getPulga)
@@ -366,13 +378,8 @@ func main() {
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 
-
-
 	// router.GET("/ave", getAve)
 	// router.GET("/ave/:id",getAveId)
 	router.Run("localhost:4000")
 
 }
-
-
-
