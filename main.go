@@ -55,13 +55,7 @@ type Animales struct {
 	ID         int     `json:ID`
 	Tipo string `json:ID`
 	Nombre string `json:Nombre`
-
-}// yesica zemanate
-// var ave =[]AnimalAve{
-// 	{ID: "1", Nombre: "Águila calva",Ubicacion:"América del Norte", Habitat: " Bosques cercanos a cuerpos de agua, como ríos, lagos y costas marinas"},
-// 	{ID: "2", Nombre :"Colibrí esmeralda ", Ubicacion: "América Central y del Sur", Habitat: "Bosques tropicales y subtropicales, jardines y áreas con flores"},
-// 	{ID: "3", Nombre:"Cóndor de los Andes ", Ubicacion: "Cordilleras de los Andes en América del Sur", Habitat: " Cordilleras montañosas, acantilados y cielos abiertos"},
-// 	}
+}
 
 
 
