@@ -26,7 +26,11 @@ type Frutas struct {
 	Description string `json:"description"`
 }
 
-
+type Motos struct {
+	ID          string  `json:"id"`
+	Nombre      string `json:"nombre"`
+	Description string `json:"description"`
+}
 
 
 var alimentos = []Alimento{
@@ -174,12 +178,12 @@ var frutas = []*Server{
 }
 
 // Función para buscar una fruta por su ID en una lista de frutas
-func buscarFrutaPorID(idBuscado int) *Fruta {
-	for _, fruta := range frutas {
-		if fruta.ID == idBuscado {
-			return &fruta // Retorna una referencia a la fruta encontrada
-		}
-	}
+func buscarFrutaPorID(idBuscado int) *Server {
+	 for i := range frutas {
+        if frutas[i].ID == idBuscado {
+            return &frutas[i] // Devolver un puntero al objeto encontrado
+        }
+    }
 	return nil // Retorna nil si no se encuentra la fruta
 }
 
@@ -207,6 +211,26 @@ func getFrutaByIDD(c *gin.Context) {
 	}
 }
 
+//KEVIN //
+var motos = []Motos{
+	{ID: "1", Nombre: "yamaha", Description: "velocidad 1"},
+	{ID: "2", Nombre: "honda", Description: "velocidad 2"},
+	{ID: "3", Nombre: "cbr", Description: "velocidad 3"},
+}
+
+func getMotos(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, motos)
+}
+
+func getMotosByID(c *gin.Context) {
+	id := c.Param("id")
+	for _, a := range motos {
+		if a.ID == id {
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+}
 func main(){
 	router := gin.Default()
 	router.GET("/alimentos", getAlimento)
@@ -215,5 +239,7 @@ func main(){
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
 	router.GET("/frutas/:id", getFrutaByIDD)
+	router.GET("/motos", getMotos)
+	router.GET("/motos/:id", getMotosByID)
 	router.Run("localhost:4000")
 }
