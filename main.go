@@ -7,6 +7,12 @@ import (
 	"strconv"
 )
 
+type Panda struct {
+	ID          string `json:"id"`
+	Nombre      string `json:"nombre"`
+	Description string `json:"description"`
+
+}
 
 type Serpiente struct {
 	ID     int    `json:ID`
@@ -127,6 +133,11 @@ type Leon struct {
 
 }
 
+var animal = []Panda{
+	{ID: "1", Nombre: "oso", Description: "es grande "},
+	{ID: "2", Nombre: "perro", Description: "son bravos"},
+	{ID: "3", Nombre: "gato", Description: "tienen grandes uñas"},
+}
 func getSerpiente(s *gin.Context) {
 	s.IndentedJSON(http.StatusOK, serpiente)
 }
@@ -154,35 +165,19 @@ var leones = []Leon{
 
 }
 
-func getleon(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, leones)
+func getAlimento(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, animal)
+
 }
+func getAnimalByID(c *gin.Context) {
 
-func getLeonesID(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
-		return
-	}
-
-
-	var animal Leon
-	for _, a := range leones{
+	id := c.Param("id")
+	for _, a := range animal {
 		if a.ID == id {
-			animal = a
-			break
+			c.IndentedJSON(http.StatusOK, a)
+			return
 		}
 	}
-
-
-	if animal.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Animal no encontrado"})
-		return
-	}
-
-
-	c.IndentedJSON(http.StatusOK, animal)
 }
 
 type Arana struct {
@@ -344,8 +339,8 @@ func getNaranjaByID(c *gin.Context) {
 
 func main() {
 	router := gin.Default()
-	router.GET("/leones", getleon)
-	router.GET("/leones/:id", getLeonesID)
+	// router.GET("/leones", getleon)
+	// router.GET("/leones/:id", getLeonesID)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
 	router.GET("/carambombo", getCarambombo)
@@ -362,9 +357,8 @@ func main() {
 	router.GET("/frutamango", getAllMangos)
   	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
-  	
-
-  
+	router.GET("/alimentos", getAlimento)
+	router.GET("/animal/:id", getAnimalByID)
   
   router.Run("localhost:4000")
 }
