@@ -1,11 +1,23 @@
+
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
+// edin
+type Spider struct {
+	ID          string `json:"id"`
+	Nombre      string `json:"nombre"`
+	Description string `json:"description"`
+}
+
+var spider = []Spider{
+	{ID: "1", Nombre: "Tarantulas", Description: "arañas migalomorfas de gran tamaño con el cuerpo cubierto por pelos llamados sedas."},
+	{ID: "2", Nombre: "Viudas Negras", Description: "tiene un cuerpo negro y brillante con una forma de reloj de arena rojo en la zona ventral"},
+	{ID: "3", Nombre: "Licósidos", Description: "arañas que vagan en el suelo, excavando pequeñas galerías verticales u ocupando grietas naturales desde las que acechan a sus presas, cuya presencia detectan por las vibraciones del suelo."},
 
 type Serpiente struct {
 	ID     int    `json:ID`
@@ -130,6 +142,11 @@ func getSerpiente(s *gin.Context) {
 	s.IndentedJSON(http.StatusOK, serpiente)
 }
 
+
+func getSpiderByID(c *gin.Context) {
+	id := c.Param("id")
+	for _, a := range spider {
+
 func getSerpienteByID(s *gin.Context) {
 	idse := s.Param("id")
 	idint, err := strconv.Atoi(idse)
@@ -220,19 +237,14 @@ func getAranaByID(c *gin.Context) {
 
 	var arana Arana
 	for _, a := range aranas {
+
 		if a.ID == id {
-			arana = a
-			break
+			c.IndentedJSON(http.StatusOK, a)
+			return
 		}
 	}
-
-	if arana.Nombre == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Arana no encontrada"})
-		return
-	}
-
-	c.JSON(http.StatusOK, arana)
 }
+
 
 func getCarambombo(z *gin.Context) {
 	z.IndentedJSON(http.StatusOK, carambombos)
@@ -362,6 +374,8 @@ func main() {
 	router.GET("/frutamango", getAllMangos)
   router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
+  router.GET("/spider", getSpider)
+	router.GET("/spider/:id", getSpiderByID)
 
   
   
