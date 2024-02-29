@@ -6,6 +6,14 @@ import (
 	"strconv"
 )
 
+type Server struct {
+    ID          int
+    Nombre      string
+    Description string
+    // Otros campos que puedas necesitar
+}
+
+// Lista de objetos de ejemplo
 type Alimento struct{
 	ID int `json:"id"`
 	Nombre string `json:"nombre"`
@@ -25,6 +33,12 @@ type Arana struct {
 	Nombre string `json:Nombre`
 }
 
+var frutas = []Server{
+	{ID: 1, Nombre: "Manzana", Description: "fruta que se da en climas frios"},
+	{ID: 2, Nombre: "Uva", Description: "fruta dulce"},
+	{ID: 3, Nombre: "Banano", Description: "fruta con mucha proteina"},
+	{ID: 4, Nombre: "Mango", Description: "fruta tropical"},
+}
 var alimentos = []Alimento{
 	 {ID: 1, Nombre:"Arepas de choclo", Description: "Hechas de maíz"},
 	{ID: 1, Nombre:"Arepitas", Description: "Hechas de maicitos"},
@@ -36,6 +50,37 @@ var aranas = []Arana{
 	{ID: 2, Tipo: "Aranita chiquita", Nombre: "Ariana Grande"},
 }
 
+func buscarFrutaPorID(idBuscado int) *Server {
+	for _, fruta := range frutas {
+		if fruta.ID == idBuscado {
+			return &fruta // Retorna una referencia a la fruta encontrada
+		}
+	}
+	return nil // Retorna nil si no se encuentra la fruta
+}
+// Handler para la ruta "/server/{id}"
+func getFrutaByIDD(c *gin.Context) {
+	// Obtener el ID de la fruta desde la URL
+	idStr := c.Param("id")
+
+	// Convertir el ID de string a int
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID inválido"})
+		return
+	}
+
+	// Buscar la fruta por ID
+	frutaEncontrada := buscarFrutaPorID(id)
+
+	// Verificar si la fruta fue encontrada
+	if frutaEncontrada != nil {
+		// Devolver la fruta encontrada como JSON
+		c.JSON(http.StatusOK, frutaEncontrada)
+	} else {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
+	}
+}
 func getAlimento(a *gin.Context){
 a.IndentedJSON(http.StatusOK, alimentos)
 }
@@ -111,5 +156,6 @@ func main(){
 	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
+	router.GET("/frutas/:id", getFrutaByIDD)
 	router.Run("localhost:4000")
 }
