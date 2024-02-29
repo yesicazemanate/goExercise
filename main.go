@@ -16,24 +16,12 @@ type Server struct {
 }
 
 
-type Frutas struct {
-	ID          int    `json:"id"`
-	Nombre      string `json:"nombre"`
-	Description string `json:"description"`
-}
 
 type Motos struct {
 	ID          string  `json:"id"`
 	Nombre      string `json:"nombre"`
 	Description string `json:"description"`
 }
-
-
-
-
-
-
-
 
 
 
@@ -174,44 +162,6 @@ func getAranaByID(c *gin.Context) {
 }
 ////////SANTIAGO NARVAEZ LASSO
 
-
-// LUISA VILLACORTE
-var fruits = []Frutas{
-	{ID: 1, Nombre: "Sandia", Description: "Fruta tropical"},
-	{ID: 2, Nombre: "Limón", Description: "Fruta ácida"},
-	{ID: 3, Nombre: "Naranja", Description: "Fruta semi-ácida"},
-}
-func getFrutas(a *gin.Context) {
-	a.IndentedJSON(http.StatusOK, fruits)
-}
-
-func getFrutaByID(c *gin.Context) {
-	idStr := c.Param("id")
-	id, err := strconv.Atoi(idStr)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "ID no válido"})
-		return
-	}
-
-	// Encontrar la fruta por ID
-	var frutaEncontrada *Frutas
-	for _, c := range fruits {
-		if c.ID == id {
-			frutaEncontrada = &c
-			break
-
-		}
-	}
-
-	// Comprobar si se encontró la fruta
-	// if frutaEncontrada.ID == nil {
-	// 	c.JSON(http.StatusNotFound, gin.H{"error": "Fruta no encontrada"})
-	// 	return
-	// }
-
-	// Devolver la fruta encontrada
-	c.IndentedJSON(http.StatusOK, frutaEncontrada)
-}
 
 
 
@@ -371,7 +321,7 @@ func main(){
 // Función handler para obtener una fruta por su ID
 
 	
-// LUISA VILLACORTE
+
 
 // Yerson
 type Oso struct {
@@ -443,35 +393,22 @@ func main() {
 	router := gin.Default()
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
-
 	router.GET("/frutamango/:id", getFruta)
 	router.GET("/frutamango", getAll)
-
 	router.GET("/pulgasM", getPulga)
 	router.GET("/pulgasM/:id", getByIdPulga)
 	router.GET("/animales", getAnimales)
 	router.GET("/animales/:id", getAnimal)
-
 	router.GET("/aranass", getAranass)
 	router.GET("/aranass/:id", getAranassByID)
-	router.Run("localhost:4000")
-
-	router.GET("/frutas/:id", getFrutaByIDD)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-     router.GET("/alimentos", getAlimento)
-router.GET("/animal/:id", getAnimalByID)
-	router.GET("/frutas/:id", getFrutaByIDD)
+    router.GET("/alimentos", getAlimento)
+    router.GET("/animal/:id", getAnimalByID)
 	router.GET("/motos", getMotos)
 	router.GET("/motos/:id", getMotosByID)
-	router.GET("/frutas", getFrutas)
-	router.GET("/frutas/:id", getFrutaByID)
 	router.GET("/ave", getAve)
 	router.GET("/ave/:id",getAveId)
-	
-	router.GET("/frutas", getFrutas)
-	router.GET("/frutas/:id", getFrutaByID)
-	
 	router.GET("/serpiente", getSerpiente)
 	router.GET("/serpiente/:id", getSerpienteByID)
 	router.Run("localhost:4000")
