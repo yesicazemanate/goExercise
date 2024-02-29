@@ -6,6 +6,12 @@ import(
 "strconv"
 )
 
+
+type Spider struct {
+	ID          string `json:"id"`
+  Nombre      string `json:"nombre"`
+  Descripcion string `json:"descripcion"`
+}
 //YERSON
 type Oso struct {
 	ID          int    `json:"id"`
@@ -22,6 +28,7 @@ var osos = []Oso{
 func getOso(c *gin.Context) {
     c.IndentedJSON(http.StatusOK,osos)
 }
+
 func getOsoPorID(c *gin.Context) {
     idStr := c.Param("id")
     id, err := strconv.Atoi(idStr)
@@ -45,6 +52,18 @@ type Leon struct {
 	Nombre      string `json:"nombre"`
 	Description string `json:"description"`
 }
+
+
+var spider = []Spider{
+	{ID: "1", Nombre: "Tarantulas", Description: "arañas migalomorfas de gran tamaño con el cuerpo cubierto por pelos llamados sedas."},
+	{ID: "2", Nombre: "Viudas Negras", Description: "tiene un cuerpo negro y brillante con una forma de reloj de arena rojo en la zona ventral"},
+	{ID: "3", Nombre: "Licósidos", Description: "arañas que vagan en el suelo, excavando pequeñas galerías verticales u ocupando grietas naturales desde las que acechan a sus presas, cuya presencia detectan por las vibraciones del suelo."},
+}
+
+func getSpider(a *gin.Context) {
+	a.IndentedJSON(http.StatusOK, spider)
+}
+
 
 var leones = []Leon{
 	{ID: 1, Nombre: "Leon verde", Description: "es muy grande"},
@@ -165,6 +184,9 @@ func getCarambomboByID(y *gin.Context) {
 
 func main() {
 	router := gin.Default()
+
+	router.GET("/spider", getSpider)
+	router.GET("/spider/:id", getSpiderByID)
 	router.GET("/leones", getleon)
 	router.GET("/leones/:id", getLeonesID)
 	router.GET("/aranas", getAranas)
@@ -175,7 +197,10 @@ func main() {
   router.GET("/osos/:id", getOsoPorID)
 
 
-
+  
+  
+  
+  router.Run("localhost:4000")
 }
 
 
