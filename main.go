@@ -35,6 +35,10 @@ func getByIdPulga(m * gin.Context){
 			m.IndentedJSON(http.StatusOK, ma)
 			return
 
+		}
+	}
+}
+
 type AnimalAve struct{
 ID int `json:"id"`
 Nombre string `json:"nombre"`
@@ -136,10 +140,17 @@ func getLeonesID(c *gin.Context) {
 		if a.ID == id {
 			animal = a
 			break
-
 		}
 	}
 
+
+	if animal.ID == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Animal no encontrado"})
+		return
+	}
+
+
+	c.IndentedJSON(http.StatusOK, animal)
 }
 
 type Arana struct {
