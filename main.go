@@ -48,7 +48,6 @@ func getAranaByID(c *gin.Context) {
 
 func main(){
 	router := gin.Default()
-	router.GET("/alimentos", getAlimento)
 	router.GET("/aranas", getAranas)
 	router.GET("/aranas/:id", getAranaByID)
 
@@ -62,7 +61,7 @@ func main(){
 
 
 
-	
+
 	router.Run("localhost:4000")
-	
+
 }
